@@ -30,42 +30,28 @@ class ZigzagTraversal {
     deque<TreeNode *> dq;
 
     dq.push_front(root);
-    vector<int> rootLevel;
-    rootLevel.push_back(root->val);
-    result.push_back(rootLevel);
     bool zig = true;
     while(!dq.empty()) {
       int levelSize = dq.size();
-      vector<int> thisLevel;
-      deque<TreeNode *> levelDQ;
+      int n = levelSize;
+      vector<int> thisLevel(levelSize);
       while(levelSize > 0) {
         TreeNode *current = dq.back();
         dq.pop_back();
-        if (zig) {
-          if (current->right != nullptr) {
-            levelDQ.push_back(current->right);
-          }
-          if (current->left != nullptr) {
-            levelDQ.push_back(current->left);
-          }
-        } else {
-          if (current->left != nullptr) {
-            levelDQ.push_back(current->left);
-          }
-          if (current->right != nullptr) {
-            levelDQ.push_back(current->right);
-          }
+        if (current->left != nullptr) {
+          dq.push_front(current->left);
+        }
+        if (current->right != nullptr) {
+          dq.push_front(current->right);
         }
         levelSize--;
+        if (zig) {
+          thisLevel[n - levelSize - 1] = current->val;
+        } else {
+          thisLevel[levelSize] = current->val;
+        }
       }
       zig = !zig;
-
-      while(!levelDQ.empty()) {
-        TreeNode * current = levelDQ.front();
-        levelDQ.pop_front();
-        thisLevel.push_back(current->val);
-        dq.push_back(current);
-      }
       result.push_back(thisLevel);
     }
     return result;
