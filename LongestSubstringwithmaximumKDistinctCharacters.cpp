@@ -25,3 +25,12 @@ class LongestSubstringKDistinct {
     return maxLength;
   }
 };
+
+int main(int argc, char *argv[]) {
+  cout << "Length of the longest substring (araaci, 2): " << LongestSubstringKDistinct::findLength("araaci", 2)
+       << endl;
+  cout << "Length of the longest substring: (araaci, 1)" << LongestSubstringKDistinct::findLength("araaci", 1)
+       << endl;
+  cout << "Length of the longest substring: (cbbebi, 3)" << LongestSubstringKDistinct::findLength("cbbebi", 3)
+       << endl;
+}
