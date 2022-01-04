@@ -12,25 +12,25 @@ class ListNode:
     return self.value < other.value
 
 def merge_lists(lists):
-  result_head = None
   k = len(lists)
   minhp = []
-
+  
   for i in range(k):
     if lists[i]:
       heappush(minhp, lists[i])
   
-  result_head,current_ptr = None, None
+  result_head = heappop(minhp)
+  if result_head.next:
+    heappush(minhp, result_head.next)
+  current_ptr = result_head
+
   while minhp:
     tmp = heappop(minhp)
-    if result_head == None:
-      result_head = current_ptr = tmp
-    else:
+    if tmp:
       current_ptr.next = tmp
       current_ptr = current_ptr.next
     if tmp.next:
       heappush(minhp, tmp.next)
-
   return result_head
 
 def main():
